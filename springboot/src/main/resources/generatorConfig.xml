@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <!-- 配置驱动包的路径 maven 引入不需要配 -->
+    <!--<classPathEntry location="C:\Users\baojulin\.m2\repository\mysql\mysql-connector-java\5.1.21\mysql-connector-java-5.1.21.jar" />-->
+
+    <!-- 一个数据库一个context -->
+    <context id="Mysql" targetRuntime="MyBatis3">
+
+        <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/welife_db"
+                        userId="root" password="root" />
+
+        <!-- 指定生成pojo的包和此包在项目中的地址； -->
+        <javaModelGenerator targetPackage="com.example.demo.entity" targetProject="src\main\java" />
+
+        <!-- 指定生成pojo的映射xml文件的所在包和此包在项目中的地址 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src\main\resources" />
+
+        <!-- 指定生成访问映射xml文件的接口所在包和此包在项目中的地址； -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.demo.dao" targetProject="src\main\java"></javaClientGenerator>
+
+        <!-- table可以有多个,每个数据库中的表都可以写一个table，tableName表示要匹配的数据库表,也可以在tableName属性中通过使用%通配符来匹配所有数据库表,只有匹配的表才会自动生成文件 -->
+        <!--如果想生成一个表则tableName="table_name"-->
+        <table tableName="%"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false" />
+            <!-- 数据库表主键 -->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true" />
+        </table>
+    </context>
+</generatorConfiguration>

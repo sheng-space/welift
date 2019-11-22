@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.MessageTemplateMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.MessageTemplate">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="is_sys" jdbcType="INTEGER" property="isSys" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="is_applet" jdbcType="INTEGER" property="isApplet" />
+    <result column="imgurl" jdbcType="VARCHAR" property="imgurl" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="slogans" jdbcType="VARCHAR" property="slogans" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="create_id" jdbcType="INTEGER" property="createId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user_id" jdbcType="INTEGER" property="updateUserId" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, status, number, name, is_sys, title, content, is_applet, imgurl, code, slogans, 
+    url, create_id, create_time, update_time, update_user_id, deleted
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from message_template
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from message_template
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.MessageTemplate">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into message_template (status, number, name, 
+      is_sys, title, content, 
+      is_applet, imgurl, code, 
+      slogans, url, create_id, 
+      create_time, update_time, update_user_id, 
+      deleted)
+    values (#{status,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{isSys,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{isApplet,jdbcType=INTEGER}, #{imgurl,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{slogans,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{createId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.MessageTemplate">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into message_template
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="status != null">
+        status,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="isSys != null">
+        is_sys,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="isApplet != null">
+        is_applet,
+      </if>
+      <if test="imgurl != null">
+        imgurl,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="slogans != null">
+        slogans,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUserId != null">
+        update_user_id,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="isSys != null">
+        #{isSys,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="isApplet != null">
+        #{isApplet,jdbcType=INTEGER},
+      </if>
+      <if test="imgurl != null">
+        #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="slogans != null">
+        #{slogans,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.MessageTemplate">
+    update message_template
+    <set>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="isSys != null">
+        is_sys = #{isSys,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="isApplet != null">
+        is_applet = #{isApplet,jdbcType=INTEGER},
+      </if>
+      <if test="imgurl != null">
+        imgurl = #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="slogans != null">
+        slogans = #{slogans,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        update_user_id = #{updateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.MessageTemplate">
+    update message_template
+    set status = #{status,jdbcType=INTEGER},
+      number = #{number,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      is_sys = #{isSys,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      is_applet = #{isApplet,jdbcType=INTEGER},
+      imgurl = #{imgurl,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      slogans = #{slogans,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user_id = #{updateUserId,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

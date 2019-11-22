@@ -1,0 +1,38 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: springboot
+  datasource:
+    name: db_system
+    url: jdbc:mysql://localhost:3306/welife_db?Unicode=true&amp;characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password :
+    encode: UTF-8
+    timeout: 6000
+    pool:
+      max-active: 100
+      max-wait: -1
+      max-idle: 10
+      min-idle: 5
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+mybatis:
+  typeAliasesPackage: com.example.demo.entity
+  mapperLocations: classpath:mapper/*.xml
+pagehelper:
+  helperDialect: mysql
+logging:
+  path: /logs/springboot

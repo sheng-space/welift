@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.MessageMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.Message">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="message_type" jdbcType="INTEGER" property="messageType" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="bs_id" jdbcType="INTEGER" property="bsId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="send_time" jdbcType="TIMESTAMP" property="sendTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, message_type, user_id, bs_id, title, content, status, send_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from message
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.Message">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into message (message_type, user_id, bs_id, 
+      title, content, status, 
+      send_time)
+    values (#{messageType,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{bsId,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{sendTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Message">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="messageType != null">
+        message_type,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="bsId != null">
+        bs_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="sendTime != null">
+        send_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="messageType != null">
+        #{messageType,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="bsId != null">
+        #{bsId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sendTime != null">
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Message">
+    update message
+    <set>
+      <if test="messageType != null">
+        message_type = #{messageType,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="bsId != null">
+        bs_id = #{bsId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sendTime != null">
+        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Message">
+    update message
+    set message_type = #{messageType,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      bs_id = #{bsId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      send_time = #{sendTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

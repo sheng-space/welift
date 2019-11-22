@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.Product">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="intro" jdbcType="VARCHAR" property="intro" />
+    <result column="ave_grade" jdbcType="DOUBLE" property="aveGrade" />
+    <result column="praise_qty" jdbcType="INTEGER" property="praiseQty" />
+    <result column="browse_qty" jdbcType="INTEGER" property="browseQty" />
+    <result column="collect_qty" jdbcType="INTEGER" property="collectQty" />
+    <result column="comment_qty" jdbcType="INTEGER" property="commentQty" />
+    <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
+    <result column="audit_id" jdbcType="INTEGER" property="auditId" />
+    <result column="creator_id" jdbcType="INTEGER" property="creatorId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user_id" jdbcType="INTEGER" property="updateUserId" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.demo.entity.Product">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, status, category_id, title, intro, ave_grade, praise_qty, browse_qty, collect_qty, 
+    comment_qty, audit_time, audit_id, creator_id, create_time, update_time, update_user_id, 
+    deleted
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from product
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.Product">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product (status, category_id, title, 
+      intro, ave_grade, praise_qty, 
+      browse_qty, collect_qty, comment_qty, 
+      audit_time, audit_id, creator_id, 
+      create_time, update_time, update_user_id, 
+      deleted, content)
+    values (#{status,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{intro,jdbcType=VARCHAR}, #{aveGrade,jdbcType=DOUBLE}, #{praiseQty,jdbcType=INTEGER}, 
+      #{browseQty,jdbcType=INTEGER}, #{collectQty,jdbcType=INTEGER}, #{commentQty,jdbcType=INTEGER}, 
+      #{auditTime,jdbcType=TIMESTAMP}, #{auditId,jdbcType=INTEGER}, #{creatorId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.Product">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="status != null">
+        status,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="intro != null">
+        intro,
+      </if>
+      <if test="aveGrade != null">
+        ave_grade,
+      </if>
+      <if test="praiseQty != null">
+        praise_qty,
+      </if>
+      <if test="browseQty != null">
+        browse_qty,
+      </if>
+      <if test="collectQty != null">
+        collect_qty,
+      </if>
+      <if test="commentQty != null">
+        comment_qty,
+      </if>
+      <if test="auditTime != null">
+        audit_time,
+      </if>
+      <if test="auditId != null">
+        audit_id,
+      </if>
+      <if test="creatorId != null">
+        creator_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUserId != null">
+        update_user_id,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null">
+        #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="aveGrade != null">
+        #{aveGrade,jdbcType=DOUBLE},
+      </if>
+      <if test="praiseQty != null">
+        #{praiseQty,jdbcType=INTEGER},
+      </if>
+      <if test="browseQty != null">
+        #{browseQty,jdbcType=INTEGER},
+      </if>
+      <if test="collectQty != null">
+        #{collectQty,jdbcType=INTEGER},
+      </if>
+      <if test="commentQty != null">
+        #{commentQty,jdbcType=INTEGER},
+      </if>
+      <if test="auditTime != null">
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditId != null">
+        #{auditId,jdbcType=INTEGER},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.Product">
+    update product
+    <set>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null">
+        intro = #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="aveGrade != null">
+        ave_grade = #{aveGrade,jdbcType=DOUBLE},
+      </if>
+      <if test="praiseQty != null">
+        praise_qty = #{praiseQty,jdbcType=INTEGER},
+      </if>
+      <if test="browseQty != null">
+        browse_qty = #{browseQty,jdbcType=INTEGER},
+      </if>
+      <if test="collectQty != null">
+        collect_qty = #{collectQty,jdbcType=INTEGER},
+      </if>
+      <if test="commentQty != null">
+        comment_qty = #{commentQty,jdbcType=INTEGER},
+      </if>
+      <if test="auditTime != null">
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditId != null">
+        audit_id = #{auditId,jdbcType=INTEGER},
+      </if>
+      <if test="creatorId != null">
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null">
+        update_user_id = #{updateUserId,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.demo.entity.Product">
+    update product
+    set status = #{status,jdbcType=INTEGER},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      intro = #{intro,jdbcType=VARCHAR},
+      ave_grade = #{aveGrade,jdbcType=DOUBLE},
+      praise_qty = #{praiseQty,jdbcType=INTEGER},
+      browse_qty = #{browseQty,jdbcType=INTEGER},
+      collect_qty = #{collectQty,jdbcType=INTEGER},
+      comment_qty = #{commentQty,jdbcType=INTEGER},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      audit_id = #{auditId,jdbcType=INTEGER},
+      creator_id = #{creatorId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user_id = #{updateUserId,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Product">
+    update product
+    set status = #{status,jdbcType=INTEGER},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      intro = #{intro,jdbcType=VARCHAR},
+      ave_grade = #{aveGrade,jdbcType=DOUBLE},
+      praise_qty = #{praiseQty,jdbcType=INTEGER},
+      browse_qty = #{browseQty,jdbcType=INTEGER},
+      collect_qty = #{collectQty,jdbcType=INTEGER},
+      comment_qty = #{commentQty,jdbcType=INTEGER},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      audit_id = #{auditId,jdbcType=INTEGER},
+      creator_id = #{creatorId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user_id = #{updateUserId,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
