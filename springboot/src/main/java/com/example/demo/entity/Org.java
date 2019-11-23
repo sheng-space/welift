@@ -11,6 +11,12 @@ public class Org {
 
     private String name;
 
+    private String linkman;
+
+    private String phone;
+
+    private String address;
+
     private Date createTime;
 
     private Integer creatorId;
@@ -51,6 +57,30 @@ public class Org {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLinkman() {
+        return linkman;
+    }
+
+    public void setLinkman(String linkman) {
+        this.linkman = linkman;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Date getCreateTime() {

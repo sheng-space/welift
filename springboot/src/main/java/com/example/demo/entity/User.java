@@ -19,6 +19,8 @@ public class User {
 
     private String phone;
 
+    private String password;
+
     private Double point;
 
     private Integer gradeId;
@@ -36,6 +38,8 @@ public class User {
     private Date updateTime;
 
     private Integer updateUserId;
+
+    private Date lastLoginTime;
 
     private Integer deleted;
 
@@ -101,6 +105,14 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Double getPoint() {
@@ -173,6 +185,14 @@ public class User {
 
     public void setUpdateUserId(Integer updateUserId) {
         this.updateUserId = updateUserId;
+    }
+
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 
     public Integer getDeleted() {

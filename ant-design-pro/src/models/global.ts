@@ -1,4 +1,4 @@
-import { queryNotices } from '@/services/user';
+import { query } from '@/services/api';
 import { Subscription } from 'dva';
 import { Reducer } from 'redux';
 import { Effect } from './connect';
@@ -41,7 +41,7 @@ const GlobalModel: GlobalModelType = {
 
   effects: {
     *fetchNotices(_, { call, put, select }) {
-      const data = yield call(queryNotices);
+      const data = yield call(query);
       yield put({
         type: 'saveNotices',
         payload: data,

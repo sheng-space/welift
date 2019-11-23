@@ -6,6 +6,9 @@
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
     <result column="seq" jdbcType="INTEGER" property="seq" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="linkman" jdbcType="VARCHAR" property="linkman" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="creator_id" jdbcType="INTEGER" property="creatorId" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -13,7 +16,8 @@
     <result column="deleted" jdbcType="INTEGER" property="deleted" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, parent_id, seq, name, create_time, creator_id, update_time, update_user_id, deleted
+    id, parent_id, seq, name, linkman, phone, address, create_time, creator_id, update_time, 
+    update_user_id, deleted
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -30,9 +34,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into org (parent_id, seq, name, 
+      linkman, phone, address, 
       create_time, creator_id, update_time, 
       update_user_id, deleted)
     values (#{parentId,jdbcType=INTEGER}, #{seq,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{linkman,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{creatorId,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{updateUserId,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER})
   </insert>
@@ -50,6 +56,15 @@
       </if>
       <if test="name != null">
         name,
+      </if>
+      <if test="linkman != null">
+        linkman,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="address != null">
+        address,
       </if>
       <if test="createTime != null">
         create_time,
@@ -76,6 +91,15 @@
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null">
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -106,6 +130,15 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="linkman != null">
+        linkman = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -129,6 +162,9 @@
     set parent_id = #{parentId,jdbcType=INTEGER},
       seq = #{seq,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       creator_id = #{creatorId,jdbcType=INTEGER},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
@@ -136,4 +172,5 @@
       deleted = #{deleted,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
 </mapper>

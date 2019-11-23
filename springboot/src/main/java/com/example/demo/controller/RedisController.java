@@ -39,6 +39,7 @@ public class RedisController extends BaseTool {
         }
         return outSuccess();
     }
+
     @RequestMapping(value = "/get")
     @ResponseBody
     public String get(@RequestParam("key") String key){

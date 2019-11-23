@@ -1,17 +1,26 @@
-package com.example.demo.dao;
+package com.example.demo.dao.mydao;
 
-import com.example.demo.entity.User;
 
-public interface UserMapper {
-    int deleteByPrimaryKey(Integer id);
+import java.util.Map;
 
-    int insert(User record);
+/**
+ * 登录mapper
+ * @author sheng
+ * @date 2019/11/23
+ */
+public interface LoginMapper {
 
-    int insertSelective(User record);
+    /**
+     * 用户账号密码登录
+     * @param map
+     * @return
+     */
+    Map login(Map map);
 
-    User selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(User record);
-
-    int updateByPrimaryKey(User record);
+    /**
+     * 用户openId登录
+     * @param openId
+     * @return
+     */
+    Map loginByOpenId(String openId);
 }

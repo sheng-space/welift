@@ -3,9 +3,24 @@ package com.example.demo.dao.mydao;
 
 import java.util.Map;
 
-public interface LoginMapper {
+/**
+ * 基础mapper
+ * @author sheng
+ * @date 2019/11/23
+ */
+public interface BaseMapper {
 
-    Map login(String phone,String password);
+    /**
+     * 用户列表
+     * @param map
+     * @return
+     */
+    Map userList(Map map);
 
-    Map loginByOpenId(String openId);
+    /**
+     * 组织列表
+     * @param map
+     * @return
+     */
+    Map orgList(Map map);
 }

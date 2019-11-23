@@ -1,21 +1,19 @@
 package com.example.demo.service;
-import com.example.demo.entity.User;
+
+
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
+ * 登录服务
  * @author sheng
  * @date 2019/11/21
  */
-public interface UserService {
+@Service
+public interface LoginService {
 
-    int deleteByPrimaryKey(Integer id);
+    Map login(String phone,String password);
 
-    int insert(User record);
-
-    int insertSelective(User record);
-
-    User selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(User record);
-
-    int updateByPrimaryKey(User record);
+    Map loginByOpenId(String openId);
 }

@@ -1,7 +1,7 @@
 // https://umijs.org/config/
 import os from 'os';
 import slash from 'slash2';
-import { IPlugin, IConfig } from 'umi-types';
+import { IPlugin, IConfig } from 'umi-types';//npm与node版本不一致报的错，可忽略
 import defaultSettings from './defaultSettings';
 import webpackPlugin from './plugin.config';
 
@@ -94,52 +94,62 @@ export default {
   // 路由配置
   routes: [
     {
-      path: '/',
-      routes: [
-        {
-          path: '/',
-          redirect: '/index',
-        },
-        {
-          path: '/index',
-          name: 'index',
-          icon: '',
-          component: './index',
-        },
-      ],
-    },
-    {
       path: '/system',
+      name: '系统管理',
+      icon: 'seting',
       component: '../layouts/BasicLayout',
-      Routes: ['src/pages/Authorized'],
-      authority: ['admin', 'user'],
       routes: [
         {
           path: '/system',
-          name: 'system',
-          redirect: '/system/analysis',
+          name: '系统管理',
+          icon: 'seting',
+          redirect: '/system/home',
+        },
+        {
+          path: '/system/home',
+          name: '首页',
+          icon: 'home',
+          component: './home',
         },
         {
           path: '/system/analysis',
-          name: 'Analysis',
+          name: '数据',
           icon: 'dashboard',
           component: './analysis',
         },
       ],
     },
+    {
+      path: '/',
+      name: 'welife',
+      component: '../layouts/UserLayout',
+      routes: [
+        {
+          path: '/',
+          redirect: '/login',
+        },
+        {
+          path: '/login',
+          name: 'login',
+          icon: '',
+          component: './login',
+        },
+      ],
+    },
+
   ],
   // Theme for antd
   // https://ant.design/docs/react/customize-theme-cn
   theme: {
     'primary-color': primaryColor,
   },
-  // proxy: {
-  //   '/server/api/': {
-  //     target: 'https://preview.pro.ant.design/',
-  //     changeOrigin: true,
-  //     pathRewrite: { '^/server': '' },
-  //   },
-  // },
+  proxy: {
+    '/api': {
+      target: 'http://localhost:8080', // 目标服务器
+      changeOrigin: true,
+      pathRewrite: { '^/api': '' },
+    },
+  },
   ignoreMomentLocale: true,
   lessLoaderOptions: {
     javascriptEnabled: true,

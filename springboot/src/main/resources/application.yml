@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 spring:
   application:
     name: springboot
@@ -31,8 +31,9 @@ spring:
     password: guest
 mybatis:
   typeAliasesPackage: com.example.demo.entity
-  mapperLocations: classpath:mapper/*.xml
+  mapperLocations: classpath:mapper/*.xml,mappers/*.xml
 pagehelper:
   helperDialect: mysql
 logging:
   path: /logs/springboot
+  file: springboot

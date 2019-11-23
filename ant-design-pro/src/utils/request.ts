@@ -8,54 +8,56 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 axios.defaults.timeout = 10000; // 超时设置,超时进入错误回调，进行相关操作
 axios.defaults.withCredentials = true; // 是否支持跨域cookie
 //请求拦截
-// axios.interceptors.request.use(
-//   config => {
-//     const token = localStorage.getItem("token");
-//     if (token||config.url.indexOf('/login') > 0) {
-//       config.headers['token'] = token;
-//       return config
-//     }
-//     router.push('/login');
-//   }, function (error) {
-//      //没有token跳到登录页
-//      message.error("加载超时！");
-//     return Promise.reject(error);
-//   }
-// )
+axios.interceptors.request.use(
+  config => {
+    const token = localStorage.getItem("token")||"";
+    const url = config.url||"";
+    if (token||url.indexOf('/login') > 0) {
+      config.headers['token'] = token;
+    }else{
+      router.push('/login');
+    }
+    return config;
+  }, function (error) {
+     //没有token跳到登录页
+     message.error("加载超时！");
+    return Promise.reject(error);
+  }
+)
 
-// //响应拦截
-// axios.interceptors.response.use((res) => {
-//   if (res.status === 401) {
-//     message.warning("token不存在！");
-//   }
-//   return res;
-// }, function(error) {
-//   if (error) {
-//     // 请求配置发生的错误
-//     if (!error.response) {
-//       return console.log('Error', error.message);
-//     }
-//     // 获取状态码
-//     const code = error.response.status;
-//     const errortext = codeMessage[code] || error.response.statusText;
-//     message.error(errortext)
-//     // 错误状态处理跳转对应的页面
-//     setTimeout(function(){
-//       let path = '/exception/403';
-//       if (code === 401) {
-//         path = '/login';
-//       } else if (code === 403) {
-//         path = '/exception/403';
-//       } else if (code >= 404 && code < 422) {
-//         path = '/exception/404';
-//       } else if (code === 500) {
-//         path = '/exception/500';
-//       }
-//       router.push(path);
-//     },1000);
-//   }
-//   return Promise.reject(error);
-// })
+// 响应拦截
+axios.interceptors.response.use((res) => {
+  if (res.status === 401) {
+    message.warning("token不存在！");
+  }
+  return res;
+}, function(error) {
+  if (error) {
+    // 请求配置发生的错误
+    if (!error.response) {
+      return console.log('Error', error.message);
+    }
+    // 获取状态码
+    const code = error.response.status;
+    const errortext = codeMessage[code] || error.response.statusText;
+    message.error(errortext)
+    // 错误状态处理跳转对应的页面
+    setTimeout(function(){
+      let path = '/exception/403';
+      if (code === 401) {
+        path = '/login';
+      } else if (code === 403) {
+        path = '/exception/403';
+      } else if (code >= 404 && code < 422) {
+        path = '/exception/404';
+      } else if (code === 500) {
+        path = '/exception/500';
+      }
+      router.push(path);
+    },1000);
+  }
+  return null;
+})
 
 /**
  * post 请求封装
