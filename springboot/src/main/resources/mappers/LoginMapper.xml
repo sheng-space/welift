@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.mydao.LoginMapper">
+
+  <select id="login" parameterType="map" resultType="map">
+      select a.*,
+              b.name AS org_name,
+              c.name AS grade_name
+      from user a
+      left join org b on a.org_id = b.id
+      left join grade c on a.grade_id = c.id
+      where a.phone = #{phone} and a.password = #{password}
+  </select>
+
+  <select id="loginByOpenId" parameterType="string" resultType="map">
+        select a.*,
+              b.name AS org_name,
+              c.name AS grade_name
+      from user a
+      left join org b on a.org_id = b.id
+      left join grade c on a.grade_id = c.id
+      where a.phone = #{openId}
+  </select>
+
+
+</mapper>

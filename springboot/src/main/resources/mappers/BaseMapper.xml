@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.mydao.BaseMapper">
+
+  <select id="userList" parameterType="map" resultType="map">
+      select a.*,
+              b.name AS org_name,
+              c.name AS grade_name
+      from user a
+      left join org b on a.org_id = b.id
+      left join grade c on a.grade_id = c.id
+      where 0=0
+      <if test="key != null and key !=''">
+          and (
+          a.name like concat('%',#{pd.key},'%') or
+          a.phone like concat('%',#{pd.key},'%')
+          )
+      </if>
+      <if test="org_id != null and org_id !=''">
+          and a.org_id = #{org_id}
+      </if>
+      <if test="grade_id != null and grade_id !=''">
+          and a.grade_id = #{grade_id}
+      </if>
+  </select>
+
+  <select id="orgList" parameterType="string" resultType="map">
+        select a.*
+      from org a
+      where 0=0
+      <if test="key != null and key !=''">
+          and (
+          a.name like concat('%',#{pd.key},'%')
+          )
+      </if>
+      <if test="parent_id != null and parent_id !=''">
+          and a.parent_id = #{parent_id}
+      </if>
+  </select>
+
+
+</mapper>
